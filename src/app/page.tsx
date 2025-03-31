@@ -1,3 +1,5 @@
+'use client';
+
 import CatAscii from "@/cat";
 
 function getProgressPercentage(): number {
