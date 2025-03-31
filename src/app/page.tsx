@@ -1,15 +1,25 @@
 import CatAscii from "@/cat";
 
+function getProgressPercentage(): number {
+  // 2025年4月1日 0:00:00 JST（UTC+9）を取得
+  const start = new Date(Date.UTC(2025, 3, 0, 15, 0, 0)).getTime(); // 4月1日 = (3, 0)（0-indexed）
+  // 2025年4月2日 0:00:00 JST（UTC+9）を取得
+  const end = new Date(Date.UTC(2025, 3, 1, 15, 0, 0)).getTime(); // 4月2日 = (3, 1)
+
+  // 現在時刻を取得し、日本時間（UTC+9）で扱う
+  const nowUTC = new Date(); // UTC基準
+  const nowJST = new Date(nowUTC.getTime()).getTime(); // JSTに変換
+
+  // 進捗率を計算
+  const progress = ((nowJST - start) / (end - start));
+
+  return Math.min(Math.max(progress, 0), 1); // 0から1の範囲に制限
+}
 
 export default function Home() {
 
   // 日本時間で2025年4月1日0時から2025年4月1日19時までの間に、アスキーアートを表示する
-  const startTime = new Date("2025-04-01T00:00:00+09:00")
-  const endTime = new Date("2025-04-02T00:00:00+09:00")
-  const now = new Date(new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
-  const duration = endTime.getTime() - startTime.getTime();
-  const elapsed = now.getTime() - startTime.getTime();
-  const progress = Math.min(Math.max(elapsed / duration, 0), 1);
+  const progress = getProgressPercentage();
   const displayString = CatAscii.substring(0, Math.floor(CatAscii.length * progress));
 
   return (
