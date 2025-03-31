@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from "react";
 
 import CatAscii from "@/cat";
 
@@ -20,14 +21,23 @@ function getProgressPercentage(): number {
 
 export default function Home() {
 
-  // 日本時間で2025年4月1日0時から2025年4月1日19時までの間に、アスキーアートを表示する
-  const progress = getProgressPercentage();
+  const [progress, setProgress] = useState(getProgressPercentage());
+
+  // 毎秒更新
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(getProgressPercentage());
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // const progress = getProgressPercentage();
   const displayString = CatAscii.substring(0, Math.floor(CatAscii.length * progress));
 
   return (
     <div style={{ whiteSpace: "pre", textAlign: "center" }}>
-      <h1>{progress}</h1>
-      <h2></h2>
+      <h1 suppressHydrationWarning>{progress.toFixed(20)}</h1>
       <pre>
         {displayString}
       </pre>
