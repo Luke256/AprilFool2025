@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import CatAscii from "@/cat";
 
 function getProgressPercentage(): number {
-  // 2025年4月1日 0:00:00 JST（UTC+9）を取得
-  const start = new Date(Date.UTC(2025, 3, 0, 15, 0, 0)).getTime(); // 4月1日 = (3, 0)（0-indexed）
-  // 2025年4月2日 0:00:00 JST（UTC+9）を取得
-  const end = new Date(Date.UTC(2025, 3, 1, 6, 0, 0)).getTime(); // 4月2日 = (3, 1)
+  // 2026年4月1日 0:00:00 JST（UTC+9）を取得
+  const start = new Date(Date.UTC(2026, 3, 0, 15, 0, 0)).getTime(); // 4月1日 = (3, 0)（0-indexed）
+  // 2026年4月2日 0:00:00 JST（UTC+9）を取得
+  const end = new Date(Date.UTC(2026, 3, 1, 6, 0, 0)).getTime(); // 4月2日 = (3, 1)
 
   // 現在時刻を取得し、日本時間（UTC+9）で扱う
   const nowUTC = new Date(); // UTC基準
